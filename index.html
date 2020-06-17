@@ -30,22 +30,13 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
-<!--
-      <div class="time-block row">
-        <div class="hour col-1">10AM</div>
-        <div class="present col-10"></div>
-        <button class="fas fa-calendar col-1 saveBtn"></button>
-      </div>
-      <div class="time-block row">
-        <div class="hour col-1">11AM</div>
-        <div class="future col-10"></div>
-        <button class="fas fa-calendar col-1 saveBtn"></button>
-      </div>-->
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
+    $('#currentDay').append(moment().format('dddd, MMMM Do YYYY'));
 
     var clockEvents = [
       '<div class="time-block row">',
