@@ -36,6 +36,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
+    //select and adds current day of week and date to header
     $('#currentDay').append(moment().format('dddd, MMMM Do YYYY'));
     //start time for calendar to add from
     let startHour = 8;
@@ -54,12 +55,12 @@
         '<button class="fas fa-calendar col-1 saveBtn"></button>',
       '</div>',
     ];
-    //setting for loop to create each time block
+    //setting i for loop to create each time block
     var i;
     for(i=0; i <1; i++){
       $(".container").append(clockEvents.join(''));
       //creates a object with the increment time fucntion, increase time by one for each loop
-      let startTime = (moment(startHour++,"hA").add(7,'h'));
+      let startTime = (moment(startHour++,"hA").add(1,'h'));
       //formats the startTime plus 1
       let startTime1 = startTime.format("hA");
       //converts 12 hour to 24 hour
@@ -69,7 +70,7 @@
       let hourNowInt = parseInt(hourNow24, 10);
       let startTime1Int = parseInt(startTime24, 10);
 
-     //adds the start time to id ppf
+     //adds the start time to id hour
       $('#hour').append(startTime1);
       //conditional to apply css formatting for if time is past, present or future
       if (hourNowInt === startTime1Int) {
@@ -80,6 +81,7 @@
         $('#ppf').addClass("past")
       };
       console.log(hourNowInt-startTime1Int);
+
       //need to append past.present.future to ppf
       //need to append time to hour block
     };
