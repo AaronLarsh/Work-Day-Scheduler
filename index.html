@@ -37,20 +37,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
     $('#currentDay').append(moment().format('dddd, MMMM Do YYYY'));
+    let startHour = 8;
+
+
 
     var clockEvents = [
       '<div class="time-block row">',
-        '<div class="hour col-1"></div>',
-        '<div class="past col-10"></div>',
+        '<div id="hour" class="hour col-1"></div>',
+        '<div id="ppf"class="col-10" style="border-style:solid;"></div>',
         '<button class="fas fa-calendar col-1 saveBtn"></button>',
       '</div>',
     ];
     var i;
     for(i=0; i <9; i++){
       $(".container").append(clockEvents.join(''));
-    }
-      //loop
-      //need to add div
+      let startTime = (moment(startHour++,"hA").add(1,'h'));
+      let startTime1 = startTime.format("hA");
+      $('#hour').append(startTime1);
+      //need to append past.present.future to ppf
+      //need to append time to hour block
+    };
     </script>
   </body>
 </html>
