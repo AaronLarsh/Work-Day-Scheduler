@@ -37,26 +37,54 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
     $('#currentDay').append(moment().format('dddd, MMMM Do YYYY'));
+    //start time for calendar to add from
     let startHour = 8;
 
+    //gives the current hour
+    let hourNow = moment().format("hA");
 
+    //converts hournow to 24 hour format
+    let hourNow24 = moment().format("HA");
 
-    var clockEvents = [
+    //creates an object with html class/id tags
+    let clockEvents = [
       '<div class="time-block row">',
         '<div id="hour" class="hour col-1"></div>',
-        '<div id="ppf"class="col-10" style="border-style:solid;"></div>',
+        '<div id="ppf"class="col-10""></div>',
         '<button class="fas fa-calendar col-1 saveBtn"></button>',
       '</div>',
     ];
+    //setting for loop to create each time block
     var i;
-    for(i=0; i <9; i++){
+    for(i=0; i <1; i++){
       $(".container").append(clockEvents.join(''));
-      let startTime = (moment(startHour++,"hA").add(1,'h'));
+      //creates a object with the increment time fucntion, increase time by one for each loop
+      let startTime = (moment(startHour++,"hA").add(7,'h'));
+      //formats the startTime plus 1
       let startTime1 = startTime.format("hA");
+      //converts 12 hour to 24 hour
+      let startTime24 = startTime.format("HA")
+
+      //converts from string to number
+      let hourNowInt = parseInt(hourNow24, 10);
+      let startTime1Int = parseInt(startTime24, 10);
+
+     //adds the start time to id ppf
       $('#hour').append(startTime1);
+      //conditional to apply css formatting for if time is past, present or future
+      if (hourNowInt === startTime1Int) {
+        $('#ppf').addClass("present")
+      }else if (hourNowInt < startTime1Int) {
+        $('#ppf').addClass("future")
+      }else if (hourNowInt > startTime1Int) {
+        $('#ppf').addClass("past")
+      };
+      console.log(hourNowInt-startTime1Int);
       //need to append past.present.future to ppf
       //need to append time to hour block
     };
+
+
     </script>
   </body>
 </html>
