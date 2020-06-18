@@ -52,12 +52,15 @@
       //for loop
       for(let i=0; i <9; i++){
         //creates a template string with html class/id tags
-
+        let text = '';
+        if (localStorage.getItem(i+9)) {
+          text = localStorage.getItem(i+9);
+        }
         let clockEvents = 
         `<div class="time-block row">
           <div id="hour${i+9}" class="hour col-1"></div>
-          <textarea id="ppf${i+9}"class="col-10""></textarea>
-          <button class="fas fa-calendar col-1 saveBtn"></button>
+          <textarea id="ppf${i+9}"class="col-10"">${text}</textarea>
+          <button class="fas fa-calendar col-1 saveBtn" data-number="${i+9}"></button>
         </div>`;
         $(".container").append(clockEvents);
         //creates a object with the increment time fucntion, increase time by one for each loop
@@ -84,8 +87,9 @@
       };
       //event listener
       $('.saveBtn').click(function(){
-        localStorage.setItem('note',$("textarea").val());
-        console.log(localStorage.getItem('note'));
+        let getNoteAttr = $(this).attr('data-number');
+        localStorage.setItem(getNoteAttr,$(`#ppf${getNoteAttr}`).val());
+        console.log($(`ppf${getNoteAttr}`).val());
       });
   });
 
