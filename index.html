@@ -36,55 +36,69 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
-    //select and adds current day of week and date to header
-    $('#currentDay').append(moment().format('dddd, MMMM Do YYYY'));
-    //start time for calendar to add from
-    let startHour = 8;
+    $( document ).ready(function() {
 
-    //gives the current hour
-    let hourNow = moment().format("hA");
+      //select and adds current day of week and date to header
+      $('#currentDay').append(moment().format('dddd, MMMM Do YYYY'));
+      //start time for calendar to add from
+      let startHour = 8;
 
-    //converts hournow to 24 hour format
-    let hourNow24 = moment().format("HA");
+      //gives the current hour
+      let hourNow = moment().format("hA");
 
-    //creates an object with html class/id tags
-    let clockEvents = [
-      '<div class="time-block row">',
-        '<div id="hour" class="hour col-1"></div>',
-        '<div id="ppf"class="col-10""></div>',
-        '<button class="fas fa-calendar col-1 saveBtn"></button>',
-      '</div>',
-    ];
-    //setting i for loop to create each time block
-    var i;
-    for(i=0; i <9; i++){
-      $(".container").append(clockEvents.join(''));
-      //creates a object with the increment time fucntion, increase time by one for each loop
-      let startTime = (moment(startHour++,"hA").add(1,'h'));
-      //formats the startTime plus 1
-      let startTime1 = startTime.format("hA");
-      //converts 12 hour to 24 hour
-      let startTime24 = startTime.format("HA")
+      //converts hournow to 24 hour format
+      let hourNow24 = moment().format("HA");
 
-      //converts from string to number
-      let hourNowInt = parseInt(hourNow24, 10);
-      let startTime1Int = parseInt(startTime24, 10);
+      //creates an object with html class/id tags
 
-     //adds the start time to id hour
-      $('#hour').append(startTime1);
-      //conditional to apply css formatting for if time is past, present or future
-      if (hourNowInt === startTime1Int) {
-        $('#ppf').addClass("present")
-      }else if (hourNowInt < startTime1Int) {
-        $('#ppf').addClass("future")
-      }else if (hourNowInt > startTime1Int) {
-        $('#ppf').addClass("past")
+      
+      //setting i for loop to create each time block
+        
+      for(let i=0; i <9; i++){
+        let clockEvents = 
+        `<div class="time-block row">
+          <div id="hour${i+9}" class="hour col-1"></div>
+          <textarea id="ppf${i+9}"class="col-10""></textarea>
+          <button class="fas fa-calendar col-1 saveBtn"></button>
+        </div>`;
+        $(".container").append(clockEvents);
+        //creates a object with the increment time fucntion, increase time by one for each loop
+        let startTime = (moment(startHour++,"hA").add(1,'h'));
+        //formats the startTime plus 1
+        let startTime1 = startTime.format("hA");
+        //converts 12 hour to 24 hour
+        let startTime24 = startTime.format("HA")
+
+        //converts from string to number
+        let hourNowInt = parseInt(hourNow24, 10);
+        let startTime1Int = parseInt(startTime24, 10);
+
+      //adds the start time to id hour
+        $(`#hour${i+9}`).append(startTime1);
+        //conditional to apply css formatting for if time is past, present or future
+        if (hourNowInt === startTime1Int) {
+          $(`#ppf${i+9}`).addClass("present")
+        }else if (hourNowInt < startTime1Int) {
+          $(`#ppf${i+9}`).addClass("future")
+        }else if (hourNowInt > startTime1Int) {
+          $(`#ppf${i+9}`).addClass("past")
+        };
+        console.log(hourNowInt-startTime1Int);
+        //event listener
+
+        //need to append past.present.future to ppf
+        //need to append time to hour block
       };
-      console.log(hourNowInt-startTime1Int);
+      $('.saveBtn').click(function(){
+        localStorage.setItem('note',$("textarea").val());
+        if(localStorage.getItem('note')){
 
-      //need to append past.present.future to ppf
-      //need to append time to hour block
-    };
+        } else {
+          
+        };
+        console.log(localStorage.getItem('note'));
+      });
+  });
 
 
     </script>
