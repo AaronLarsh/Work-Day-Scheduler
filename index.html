@@ -51,22 +51,29 @@
 
       //for loop
       for(let i=0; i <9; i++){
-        //creates a template string with html class/id tags
+        //empty string for text to be stored
         let text = '';
+        //if statment checking if there is already info in the key value pair
         if (localStorage.getItem(i+9)) {
           text = localStorage.getItem(i+9);
         }
+        //creates a template string with html class/id tags
         let clockEvents = 
         `<div class="time-block row">
           <div id="hour${i+9}" class="hour col-1"></div>
           <textarea id="ppf${i+9}"class="col-10"">${text}</textarea>
           <button class="fas fa-calendar col-1 saveBtn" data-number="${i+9}"></button>
         </div>`;
+        
+        //appends clockevents to containter div
         $(".container").append(clockEvents);
+
         //creates a object with the increment time fucntion, increase time by one for each loop
         let startTime = (moment(startHour++,"hA").add(1,'h'));
+
         //formats the startTime plus 1
         let startTime1 = startTime.format("hA");
+
         //converts 12 hour to 24 hour
         let startTime24 = startTime.format("HA")
 
@@ -76,6 +83,7 @@
 
       //adds the start time to id hour
         $(`#hour${i+9}`).append(startTime1);
+
         //conditional to apply css formatting for if time is past, present or future
         if (hourNowInt === startTime1Int) {
           $(`#ppf${i+9}`).addClass("present")
@@ -85,15 +93,17 @@
           $(`#ppf${i+9}`).addClass("past")
         };
       };
+
       //event listener
       $('.saveBtn').click(function(){
+
+        //sets the getNoteAtte eqaul to this data number key
         let getNoteAttr = $(this).attr('data-number');
+
+        //set local storage value for the spsicif id
         localStorage.setItem(getNoteAttr,$(`#ppf${getNoteAttr}`).val());
-        console.log($(`ppf${getNoteAttr}`).val());
       });
   });
-
-
     </script>
   </body>
 </html>
