@@ -30,7 +30,6 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
-
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -38,8 +37,9 @@
     <script type="text/javascript">
     $( document ).ready(function() {
 
-      //select and adds current day of week and date to header
+      //select and adds current day of week and date to header for mats it for Day of week and todays date
       $('#currentDay').append(moment().format('dddd, MMMM Do YYYY'));
+
       //start time for calendar to add from
       let startHour = 8;
 
@@ -49,12 +49,10 @@
       //converts hournow to 24 hour format
       let hourNow24 = moment().format("HA");
 
-      //creates an object with html class/id tags
-
-      
-      //setting i for loop to create each time block
-        
+      //for loop
       for(let i=0; i <9; i++){
+        //creates a template string with html class/id tags
+
         let clockEvents = 
         `<div class="time-block row">
           <div id="hour${i+9}" class="hour col-1"></div>
@@ -83,19 +81,10 @@
         }else if (hourNowInt > startTime1Int) {
           $(`#ppf${i+9}`).addClass("past")
         };
-        console.log(hourNowInt-startTime1Int);
-        //event listener
-
-        //need to append past.present.future to ppf
-        //need to append time to hour block
       };
+      //event listener
       $('.saveBtn').click(function(){
         localStorage.setItem('note',$("textarea").val());
-        if(localStorage.getItem('note')){
-
-        } else {
-          
-        };
         console.log(localStorage.getItem('note'));
       });
   });
